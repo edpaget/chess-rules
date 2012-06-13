@@ -1,4 +1,4 @@
-require 'chess/piece'
+require 'chess-rules/piece'
 
 module Chess
   class Board

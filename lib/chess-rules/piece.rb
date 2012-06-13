@@ -1,3 +1,5 @@
+require 'chess-rules/moves'
+
 module Chess
 
   class Piece

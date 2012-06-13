@@ -4,7 +4,7 @@ require "chess-rules/version"
 
 Gem::Specification.new do |s|
   s.name        = "chess-rules"
-  s.version     = Chess::Rules::VERSION
+  s.version     = Chess::VERSION
   s.authors     = ["Edward Paget"]
   s.email       = ["ed.paget@gmail.com"]
   s.homepage    = ""
@@ -20,6 +20,5 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
-  s.add_development_dependency "travis-lint"
   # s.add_runtime_dependency "rest-client"
 end

@@ -1,7 +1,5 @@
 require "chess-rules/version"
+require "chess-rules/board"
 
 module Chess
-  module Rules
-    # Your code goes here...
-  end
 end
