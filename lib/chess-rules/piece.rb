@@ -5,23 +5,57 @@ module Chess
   class Piece
     attr_accessor :color, :square
 
+    @@pieces = Hash.new
+
     def initialize(square, color)
       @color = color
       @square = square
+      @@pieces.store @square, self
+    end
+
+    def self.move(move)
+      start_square = move[0..1]
+      end_square = move[2..3]
+
+      piece = @@pieces[start_square]
+      piece.move end_square
+
+      @@pieces.store end_square, piece
+      @@pieces.delete start_square
+    end
+
+    def self.find_by_square(square)
+      @@pieces[square]
+    end
+
+    def self.find_by_color_and_piece(color, piece)
+      pieces = @@pieces.values
+      compare_piece = piece.new("Illegal Square", color)
+      pieces.select { |piece| piece == compare_piece }
+    end
+
+    def self.all
+      @@pieces
+    end
+
+    def self.to_mongo(value)
+      value.to_hash
+    end
+
+    def self.from_mongo(value)
+      value.is_a?(self) ? value : self.new(value['square'], value['color'])
     end
 
     def ==(piece)
-      if (self.class == piece)
-        true
-      elsif (self.class == piece.class) && (self.color == piece.color)
-        true
-      else
-        false
-      end
+      (self.class == piece.class) && (self.color == piece.color)
     end
 
     def move(square)
-      @square = square
+      @square = square if legal_move? square
+    end
+
+    def to_hash
+      return( { 'color' => @color, 'square' => @square } )
     end
   end
 
@@ -41,14 +75,6 @@ module Chess
       "R"
     end
 
-    def move?(move)
-      if (move[0] == @square[0]) || (move[1] == @square[1])
-        true
-      else
-        false
-      end
-    end
-    
     def move(move)
       @caste = false
       super move
@@ -62,16 +88,6 @@ module Chess
 
     def notation
       "Q"
-    end
-
-    def move?(move)
-      if (move[0] == @square[0]) || (move[1] == @square[1])
-        true
-      elsif ((move[0].ord - @square[0].ord).abs == (move[1].to_i - @square[1].to_i).abs)
-        true
-      else
-        false
-      end
     end
   end
 
@@ -96,13 +112,6 @@ module Chess
       super square
     end
 
-    def move?(move)
-      if ((move[0].ord - @square[0].ord).abs > 1) || ((move[1].to_i - @square[1].to_i).abs > 1)
-        false
-      else
-        true
-      end
-    end
   end
 
   class Pawn < Piece
@@ -116,18 +125,6 @@ module Chess
       nil
     end
 
-    def move?(move)
-      if (((@color == 'white') && (move[1] == '1')) || ((@color == 'black') && move[1] == '8'))
-        false
-      elsif ((move[0] == @square[0]) && ((move[1].to_i - @square[1].to_i).abs == 1))
-        true
-      elsif (((@color == 'white') && (@square[1] == '2') && (move[1].to_i - @square[1].to_i == 2)) ||
-             ((@color == 'black') && (@square[1] == '7') && (move[1].to_i - @square[1].to_i == -2)))
-        true
-      else
-        false
-      end
-    end
 
     def move(square)
       if (@square[1] == '2') && (square[1] == '4')
@@ -147,15 +144,6 @@ module Chess
     def notation
       "B"
     end
-
-    def move?(move)
-      if ((move[0].ord - @square[0].ord).abs == (move[1].to_i - @square[1].to_i).abs)
-        true
-      else
-        false
-      end
-    end
-
   end
 
   class Knight < Piece
@@ -165,18 +153,6 @@ module Chess
 
     def notation
       "N"
-    end
-
-    def move?(move)
-      if (((move[0].ord - @square[0].ord).abs == 1) &&
-          ((move[1].to_i - @square[1].to_i).abs == 2))
-        true
-      elsif (((move[0].ord - @square[0].ord).abs == 2) &&
-             ((move[1].to_i - @square[1].to_i).abs == 1))
-        true
-      else
-        false
-      end
     end
   end
 end
