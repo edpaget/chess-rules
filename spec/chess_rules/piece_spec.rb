@@ -19,12 +19,12 @@ describe Chess::Piece do
       piece.stub!(:square).and_return('e4')
       Chess::Piece.move 'e3e4'
       Chess::Piece.all.key?('e3').should be_false
-      Chess::Piece.find_by_square('e4').square.should eq 'e4'
+      Chess::Piece.on_square('e4').square.should eq 'e4'
     end
 
     it "should find all pieces of the same color and class" do
       pieces = [ Chess::Piece.new('e3', 'black'), Chess::Piece.new('e4', 'black')]
-      Chess::Piece.find_by_color_and_piece('black', Chess::Piece).should eq(pieces)
+      Chess::Piece.by_color_and_piece('black', Chess::Piece).should eq(pieces)
     end
   end
 

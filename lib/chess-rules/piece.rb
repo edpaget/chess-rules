@@ -24,11 +24,11 @@ module Chess
       @@pieces.delete start_square
     end
 
-    def self.find_by_square(square)
+    def self.on_square(square)
       @@pieces[square]
     end
 
-    def self.find_by_color_and_piece(color, piece)
+    def self.by_color_and_piece(color, piece)
       pieces = @@pieces.values
       compare_piece = piece.new("Illegal Square", color)
       pieces.select { |piece| piece == compare_piece }
