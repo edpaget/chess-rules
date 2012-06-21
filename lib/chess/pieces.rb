@@ -22,7 +22,6 @@ module Chess
       squares = Array.new
 
       if s_file == e_file
-        puts 'here'
         count, finish = s_rank < e_rank ? [s_rank, e_rank] : [e_rank, s_rank]
         count += 1
         while count < finish
@@ -175,7 +174,7 @@ module Chess
   class Pawn < Piece
     attr_accessor :enpassant
 
-    def intiailize(square, color, enpassant=10)
+    def initialize(square, color, enpassant=false)
       @enpassant = enpassant
       super square, color
     end
@@ -197,6 +196,13 @@ module Chess
 
     def move?(square)
       (single_move? square) || (double_move? square)
+    end
+
+    def capture_move?(square)
+      s_file, s_rank = rank_and_file @square
+      e_file, e_rank = rank_and_file square
+
+      ((s_file - e_file).abs == 1) && ((s_rank - e_rank).abs == 1)
     end
 
     def single_move?(square)

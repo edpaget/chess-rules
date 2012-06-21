@@ -34,8 +34,14 @@ describe Chess::Pawn do
 
   it 'should set its en passant flag if it make a two square move' do 
     expect { @w_pawn.move ('e4') }.
-      to change { @w_pawn.enpassant }.from(nil).to(true)
+      to change { @w_pawn.enpassant }.from(false).to(true)
   end
+
+  it "should allow capture moves that are diagonally in front of it" do
+    @w_pawn.capture_move?('d3').should be_true
+    @b_pawn.capture_move?('d6').should be_true
+  end
+  
 end
 
 describe Chess::Knight do

@@ -1,0 +1,492 @@
+/Users/edpaget/.rvm/rubies/ruby-1.9.2-p290/bin/ruby -S rspec ./spec/chess/board_spec.rb ./spec/chess/game_spec.rb ./spec/chess/pieces_spec.rb
+Run options: include {:focus=>true}
+
+All examples were filtered out; ignoring {:focus=>true}
+
+Chess::Board
+  should be the default starting board if no arguments are passed
+  should retrieve the piece at a give square or return nil
+  making moves
+    should deferentiate between a move and a capture
+    only make moves if it is legal
+      should not make a move if it results in mover's king being in check (FAILED - 1)
+      should not make a move if it not possible for a piece to make it
+      should not make a move if the piece is blocked from making it
+      should return an array of pieces attacking a given square
+      should return true if the attacks array has any pieces in it
+      should return if a given color's king is in check (FAILED - 2)
+      a piece is blocked from moving when
+        has a piece of the same color occupying it's landing square (FAILED - 3)
+        has a piece along it's course of movement (FAILED - 4)
+    when an illegal move is made
+      should raise an exception if there is an illegal move (FAILED - 5)
+    castles
+      should recognize a legal castle (FAILED - 6)
+      should not allow a castle if the king is in check (FAILED - 7)
+      should not allow a castle if the king has moved (FAILED - 8)
+      should not allow a castle if the rook has moved (FAILED - 9)
+      should not allow a castle that would require the king to move through check (FAILED - 10)
+    pawn moves
+      should allow pawns to move diagonally if they are making a capture (FAILED - 11)
+      should allow pawns to capture other pawns via en passant
+      should clear any set en passant flags after the following half move (FAILED - 12)
+
+Chess::Game
+  should always have a board
+  should create a new game from a list of moves (FAILED - 13)
+  should create a new game from a board position and color to move (FAILED - 14)
+  test moves
+    should keep track of the current color's move
+    should not allow a move to be made for the wrong color
+    should keep a record of the moves made
+
+Chess::Piece
+  should move when given a square to move to
+  should return an array of squares between two squares
+
+Chess::Pawn
+  should be able to move one or two squares from it's starting location
+  should normally move one square at a time
+  should set its en passant flag if it make a two square move
+  should allow capture moves that are diagonally in front of it
+
+Chess::Knight
+  should move in an l-shape
+
+Chess::Bishop
+  should move along diagonals
+
+Chess::Rook
+  should move on the ranks and files
+  should have its castle flag set on creation unless false is passed an option
+  should set it its castle flag to false after being moved
+
+Chess::Queen
+  should move like a rook or bishop
+
+Chess::King
+  should move one square in any direction
+  should set the castle flag to false after moving for the first time
+
+Failures:
+
+  1) Chess::Board making moves only make moves if it is legal should not make a move if it results in mover's king being in check
+     Failure/Error: @board.would_check?(@piece, 'e4').should be_false
+     NoMethodError:
+       undefined method `pieces' for nil:NilClass
+     # /Users/edpaget/Documents/chess-gems/chess-rules/lib/chess/board.rb:35:in `would_check?'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:23:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  2) Chess::Board making moves only make moves if it is legal should return if a given color's king is in check
+     Failure/Error: @board.check?('white').should be_true
+       expected false to be true
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:55:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  3) Chess::Board making moves only make moves if it is legal a piece is blocked from moving when has a piece of the same color occupying it's landing square
+     Failure/Error: @board.occupied?('white', 'e2').should be_true
+       expected false to be true
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:61:in `block (5 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  4) Chess::Board making moves only make moves if it is legal a piece is blocked from moving when has a piece along it's course of movement
+     Failure/Error: @board.pieces_between?(@piece, 'c2').should be_true
+     NoMethodError:
+       undefined method `squares_between' for nil:NilClass
+     # /Users/edpaget/Documents/chess-gems/chess-rules/lib/chess/board.rb:69:in `pieces_between?'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:65:in `block (5 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  5) Chess::Board making moves when an illegal move is made should raise an exception if there is an illegal move
+     Failure/Error: expect { @board.move 'e2', 'e4' }.
+       expected no Exception, got #<NoMethodError: undefined method `move' for #<Chess::Board:0x007fb5a3ba3488>>
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:42:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:24:in `should_not'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:72:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  6) Chess::Board making moves castles should recognize a legal castle
+     Failure/Error: @board.castle?('c1').should be_false
+       expected Rook to be false
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:87:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  7) Chess::Board making moves castles should not allow a castle if the king is in check
+     Failure/Error: @board.castle?('g1').should be_false
+       expected ["e1", "e2", "e3"] to be false
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:92:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  8) Chess::Board making moves castles should not allow a castle if the king has moved
+     Failure/Error: @board.castle?('g1').should be_false
+       expected ["e1", "e2", "e3"] to be false
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:98:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  9) Chess::Board making moves castles should not allow a castle if the rook has moved
+     Failure/Error: @board.castle?('g1').should be_false
+       expected ["e1", "e2", "e3"] to be false
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:104:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  10) Chess::Board making moves castles should not allow a castle that would require the king to move through check
+     Failure/Error: @board.castle?('g1').should be_false
+       expected ["e1", "e2", "e3"] to be false
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:109:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  11) Chess::Board making moves pawn moves should allow pawns to move diagonally if they are making a capture
+     Failure/Error: @board.pawn_capture?(@piece, 'd3').should be_true
+       expected false to be true
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:19:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:117:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  12) Chess::Board making moves pawn moves should clear any set en passant flags after the following half move
+     Failure/Error: expect { @board.move('e2', 'e4') }.
+     NoMethodError:
+       undefined method `move' for #<Chess::Board:0x007fb5a3b450b8>
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:129:in `block (5 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/matchers/built_in/change.rb:16:in `call'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/matchers/built_in/change.rb:16:in `matches?'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:9:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:12:in `should'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/board_spec.rb:129:in `block (4 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:336:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  13) Chess::Game should create a new game from a list of moves
+     Failure/Error: expect { Chess::Game.new( :game => [['e2e4', 'e7e5']] ) }.
+       expected no Exception, got #<NoMethodError: undefined method `color' for nil:NilClass>
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:42:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:24:in `should_not'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/game_spec.rb:11:in `block (2 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+  14) Chess::Game should create a new game from a board position and color to move
+     Failure/Error: expect { Chess::Game.new( :to_move => 'white', :board => board ) }.
+       expected no Exception, got #<ArgumentError: wrong number of arguments(1 for 0)>
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/fail_with.rb:33:in `fail_with'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/handler.rb:42:in `handle_matcher'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-expectations-2.10.0/lib/rspec/expectations/extensions/kernel.rb:24:in `should_not'
+     # /Users/edpaget/Documents/chess-gems/chess-rules/spec/chess/game_spec.rb:18:in `block (2 levels) in <top (required)>'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `instance_eval'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:87:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:195:in `with_around_each_hooks'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example.rb:84:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:353:in `block in run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:349:in `run_examples'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/example_group.rb:335:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block (2 levels) in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `map'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:28:in `block in run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/reporter.rb:34:in `report'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/command_line.rb:25:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:69:in `run'
+     # /Users/edpaget/.rvm/gems/ruby-1.9.2-p290@chess-rules/gems/rspec-core-2.10.1/lib/rspec/core/runner.rb:10:in `block in autorun'
+
+Finished in 0.0484 seconds
+40 examples, 14 failures
+
+Failed examples:
+
+rspec ./spec/chess/board_spec.rb:22 # Chess::Board making moves only make moves if it is legal should not make a move if it results in mover's king being in check
+rspec ./spec/chess/board_spec.rb:51 # Chess::Board making moves only make moves if it is legal should return if a given color's king is in check
+rspec ./spec/chess/board_spec.rb:60 # Chess::Board making moves only make moves if it is legal a piece is blocked from moving when has a piece of the same color occupying it's landing square
+rspec ./spec/chess/board_spec.rb:64 # Chess::Board making moves only make moves if it is legal a piece is blocked from moving when has a piece along it's course of movement
+rspec ./spec/chess/board_spec.rb:71 # Chess::Board making moves when an illegal move is made should raise an exception if there is an illegal move
+rspec ./spec/chess/board_spec.rb:84 # Chess::Board making moves castles should recognize a legal castle
+rspec ./spec/chess/board_spec.rb:90 # Chess::Board making moves castles should not allow a castle if the king is in check
+rspec ./spec/chess/board_spec.rb:95 # Chess::Board making moves castles should not allow a castle if the king has moved
+rspec ./spec/chess/board_spec.rb:101 # Chess::Board making moves castles should not allow a castle if the rook has moved
+rspec ./spec/chess/board_spec.rb:107 # Chess::Board making moves castles should not allow a castle that would require the king to move through check
+rspec ./spec/chess/board_spec.rb:114 # Chess::Board making moves pawn moves should allow pawns to move diagonally if they are making a capture
+rspec ./spec/chess/board_spec.rb:127 # Chess::Board making moves pawn moves should clear any set en passant flags after the following half move
+rspec ./spec/chess/game_spec.rb:10 # Chess::Game should create a new game from a list of moves
+rspec ./spec/chess/game_spec.rb:15 # Chess::Game should create a new game from a board position and color to move
