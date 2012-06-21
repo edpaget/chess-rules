@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "chess-rules/version"
+require "chess/version"
 
 Gem::Specification.new do |s|
-  s.name        = "chess-rules"
+  s.name        = "chess"
   s.version     = Chess::VERSION
   s.authors     = ["Edward Paget"]
   s.email       = ["ed.paget@gmail.com"]
@@ -20,5 +20,6 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
+  s.add_development_dependency "rake"
   # s.add_runtime_dependency "rest-client"
 end
