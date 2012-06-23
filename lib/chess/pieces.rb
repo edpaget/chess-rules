@@ -56,6 +56,11 @@ module Chess
 
       return squares
     end
+
+    def to_ary
+      [@square, @color]
+    end
+
   end
 
   class King < Piece
@@ -86,6 +91,10 @@ module Chess
         @castle = false
       end
       super square
+    end
+
+    def to_ary
+      [@square, @color, @castle]
     end
   end
 
@@ -134,6 +143,10 @@ module Chess
         @castle = false
       end
       super square
+    end
+
+    def to_ary
+      [@square, @color, @castle]
     end
 
   end
@@ -222,6 +235,9 @@ module Chess
       elsif (@color == 'black') && (@square == 'e7')
         square == 'e5'
       end
+    end
+    def to_ary
+      [@square, @color, @enpassant]
     end
   end
 end
