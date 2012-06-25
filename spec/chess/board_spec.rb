@@ -53,6 +53,10 @@ describe Chess::Board do
   it "should return true if a piece is can make a move to a square" do
     @board.valid_move?(@piece, 'e4').should be_true
     @board.valid_move?(@piece, 'e5').should be_false
+    test_knight = @board.piece_at('g1')
+    @board.valid_move?(test_knight, 'f3').should be_true
+    test_bpawn = @board.piece_at('c7')
+    @board.valid_move?(test_bpawn, 'c5').should be_true
   end
 
   describe "when a piece is threating check" do

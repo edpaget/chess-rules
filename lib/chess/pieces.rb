@@ -230,12 +230,16 @@ module Chess
     end
 
     def double_move?(square)
-      if (@color == 'white') && (@square == 'e2')
-        square == 'e4'
-      elsif (@color == 'black') && (@square == 'e7')
-        square == 'e5'
+      s_file, s_rank = rank_and_file(@square)
+      e_file, e_rank = rank_and_file(square)
+      
+      if (@color == 'white') && (s_rank == 2)
+        (s_file == e_file) && (e_rank == 4)
+      elsif (@color == 'black') && (s_rank == 7)
+        (s_file == e_file) && (e_rank == 5)
       end
     end
+
     def to_ary
       [@square, @color, @enpassant]
     end

@@ -30,7 +30,7 @@ module Chess
         piece.move eend
         enpassant_pawn.enpassant = false unless enpassant_pawn.nil?
       else
-        raise IllegalMove
+        raise IllegalMove, "Move from #{start} to #{eend} with #{piece_at(start)} is illegal."
       end
     end
 
@@ -79,11 +79,16 @@ module Chess
 
     def stalemate?(color)
       moveable_pieces = @pieces.select { |piece| (piece.color == color) && (legal_moves? piece) }
-      puts moveable_pieces
       !(check? color) && (moveable_pieces.empty?)
     end
 
     def valid_move?(piece, square)
+      if piece.square == 'c7'
+        puts piece
+        puts piece.move? square
+        puts pawn_capture? piece, square
+        puts castle? piece, square
+      end
       (piece.move? square) || (pawn_capture? piece, square) || (castle? piece, square)
     end
 
@@ -135,7 +140,7 @@ module Chess
     end
 
     def blocked?(piece, square)
-      (occupied? piece.color, square) || (!(piece.is_a? Chess::Knight) && (pieces_between? piece, square))
+      (occupied? piece.color, square) || (pieces_between? piece, square)
     end
 
     def occupied?(color, square)
@@ -143,6 +148,9 @@ module Chess
     end
 
     def pieces_between?(piece, square)
+      if piece.is_a? Chess::Knight
+        return false
+      end
       squares = piece.squares_between(square)
       pieces = @pieces.select { |piece| squares.include? piece.square }
       !pieces.empty?
