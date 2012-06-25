@@ -7,11 +7,14 @@ module Chess
     class WrongColor < StandardError
     end
 
+    class NoPieceAtSquare < StandardError
+    end
+
     def initialize(hash={})
       @to_move = 'white'
-      @board = Chess::Board.new
       @moves = Array.new
       @halfmove_clock = 0
+      @board = Chess::Board.new
       if hash.key? :game
         hash[:game].each do |move|
           full_move move
@@ -26,11 +29,15 @@ module Chess
     end
 
     def self.to_mongo(value)
-      value.moves
+      value.to_ary
+    end
+
+    def to_ary
+      @moves
     end
 
     def self.from_mongo(value)
-      value.is_a? Chess::Game ? value : self.new :game => value
+      value.is_a?(self) ? value : self.new(:game => value)
     end
 
     def ==(game)
@@ -59,7 +66,9 @@ module Chess
         @halfmove_clock += 1
       end
 
-      if @to_move == piece.color
+      if piece.nil?
+        raise NoPieceAtSquare
+      elsif @to_move == piece.color
         board.move start, eend
       else
         raise WrongColor

@@ -8,8 +8,12 @@ module Chess
 
     attr_accessor :pieces
 
-    def initialize
+    def initialize(pieces=[])
       @pieces = Array.new(Chess.starting_position)
+    end
+
+    def to_a
+      @pieces.map { |piece| piece.to_ary }
     end
 
     def piece_at(square)
@@ -83,12 +87,6 @@ module Chess
     end
 
     def valid_move?(piece, square)
-      if piece.square == 'c7'
-        puts piece
-        puts piece.move? square
-        puts pawn_capture? piece, square
-        puts castle? piece, square
-      end
       (piece.move? square) || (pawn_capture? piece, square) || (castle? piece, square)
     end
 
