@@ -25,6 +25,14 @@ module Chess
       end
     end
 
+    def self.to_mongo(value)
+      value.moves
+    end
+
+    def self.from_mongo(value)
+      value.is_a? Chess::Game ? value : self.new :game => value
+    end
+
     def ==(game)
       self.moves == game.moves
     end
