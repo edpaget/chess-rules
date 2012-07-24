@@ -8,7 +8,7 @@ Chess is not yet on Rubygems, due to the early state of its development and the 
 
 The best way to install Chess is using Bundler. Add the following to your Gemfile
 
-  gem 'chess', :git => 'http://github.com/edpaget/chess-rules.git'
+    gem 'chess', :git => 'http://github.com/edpaget/chess-rules.git'
   
 ## Usage
 
@@ -16,21 +16,21 @@ Chess is mainly intended to validate chess moves, so it should be used by creati
 
 Create a new game as follows
 
-  Chess::Game.new() # Blank Game
-  Chess::Game.new( :game => [['e2e4', 'c7c5'], ['g1f3', nil]]) # Game with moves already made
+    Chess::Game.new() # Blank Game
+    Chess::Game.new( :game => [['e2e4', 'c7c5'], ['g1f3', nil]]) # Game with moves already made
   
 The format for feeding moves into the game is group half-moves into an array of all the full-moves. If white made the last move, black's next half-move should be marked as nil.
 
 You can then make moves by calling the `#move method on a game
 
-  game = Chess::Game.new()
-  game.move 'e2e4'
+    game = Chess::Game.new()
+    game.move 'e2e4'
   
 If a move is not legal one of three errors will be raised 
 
-  Chess::IllegalMove # if a move cannot be made by a piece or if it will put the mover's king in check
-  Chess::WrongColor # if a move will move a piece by the color that made the previous move
-  Chess::NoPieceOnSquare # if there isn't a piece on the square to be moved from 
+    Chess::IllegalMove # if a move cannot be made by a piece or if it will put the mover's king in check
+    Chess::WrongColor # if a move will move a piece by the color that made the previous move
+    Chess::NoPieceOnSquare # if there isn't a piece on the square to be moved from 
   
 ## Dependencies
 
