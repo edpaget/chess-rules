@@ -21,7 +21,7 @@ Create a new game as follows
   
 The format for feeding moves into the game is group half-moves into an array of all the full-moves. If white made the last move, black's next half-move should be marked as nil.
 
-You can then make moves by calling the `#move method on a game
+You can then make moves by calling the `#move` method on a game
 
     game = Chess::Game.new()
     game.move 'e2e4'
