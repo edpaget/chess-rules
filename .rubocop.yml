@@ -1,0 +1,15 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+AllCops:
+    NewCops: enable
+    SuggestExtensions: false
+
+Lint/DuplicateMagicComment: # new in 1.37
+  Enabled: true
+Style/OperatorMethodCall: # new in 1.37
+  Enabled: true
+Style/RedundantEach: # new in 1.38
+  Enabled: true
+Style/RedundantStringEscape: # new in 1.37
+  Enabled: true
