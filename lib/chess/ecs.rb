@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "chess/game"
-require "chess/ecs"
+require "chess/ecs/factory"
 
 module Chess
+  module Ecs
+  end
 end

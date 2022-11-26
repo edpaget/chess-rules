@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+module Chess
+  module Ecs
+    class Component
+      extend Buildable
+
+      attr_reader :tag, :data
+
+      def initialize(tag, data)
+        @tag = tag
+        @data = data
+      end
+
+      def deconstruct_keys(_)
+        { tag: tag, data: data }
+      end
+    end
+  end
+end
