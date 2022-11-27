@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "chess/ecs/buildable"
+
 module Chess
   module Ecs
     class Component
