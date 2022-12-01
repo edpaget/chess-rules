@@ -9,6 +9,8 @@ module Chess
 
       attr_reader :tag, :data
 
+      delegate :hash, to: :tag
+
       def initialize(tag, data)
         @tag = tag
         @data = data

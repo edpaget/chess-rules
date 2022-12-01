@@ -1,19 +1,15 @@
 # frozen_string_literal: true
 
 require "securerandom"
-require "chess/ecs/buildable"
 
 module Chess
   module Ecs
     class Entity
-      extend Buildable
+      attr_reader :id, :components
 
-      attr_reader :id, :tag, :components
+      def initialize(components, id: nil)
+        @id = id || SecureRandom.uuid
 
-      def initialize(tag, components, id)
-        @id = SecureRandom.uuid
-
-        @tag = tag
         @components = components
       end
 
