@@ -4,7 +4,9 @@ RDM_PROJECT = "chess-rules"
 
 [tools]
 ruby = "4.0.7"
-# hk added in phase 3
+# keep hk in sync with the amends URL version in hk.pkl
+hk = "2.6.0"
+pkl = "0.32.1"
 
 [tasks.setup]
 description = "Install gem dependencies from Gemfile.lock"
@@ -21,6 +23,6 @@ depends = ["setup"]
 run = "bundle exec rspec"
 
 [tasks.ci]
-description = "Everything CI runs: lint then test; dispatch.verify and (phase 3) hk call this"
+description = "Everything CI runs: lint then test; dispatch.verify calls this; hk pre-push runs `test`"
 depends = ["setup"]
 run = [{ task = "lint" }, { task = "test" }]
