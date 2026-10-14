@@ -34,9 +34,18 @@ If a move is not legal one of three errors will be raised
   
 ## Dependencies
 
-Chess only depends on rspec for running its test suite. 
+Chess has no runtime dependencies. Development uses rspec and rubocop.
 
-Chess is not currently compatible with Ruby 1.8.7, but has been tested on both 1.9.2 and 1.9.3
+Chess requires Ruby 3.3 or newer.
+
+## Development
+
+The toolchain and dev tasks are managed with [mise](https://mise.jdx.dev):
+
+    mise install    # installs the pinned Ruby
+    mise run ci     # bundle install, then lint (rubocop) and test (rspec)
+
+`mise run lint` and `mise run test` run the steps individually.
 
 ## Future Directions
 

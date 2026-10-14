@@ -1,0 +1,26 @@
+[env]
+RDM_ROOT = "{{env.HOME}}/Projects/rdm-atlas-repo"
+RDM_PROJECT = "chess-rules"
+
+[tools]
+ruby = "4.0.7"
+# hk added in phase 3
+
+[tasks.setup]
+description = "Install gem dependencies from Gemfile.lock"
+run = "bundle install"
+
+[tasks.lint]
+description = "Run rubocop with the repo config (offenses baselined in .rubocop_todo.yml)"
+depends = ["setup"]
+run = "bundle exec rubocop"
+
+[tasks.test]
+description = "Run the rspec suite"
+depends = ["setup"]
+run = "bundle exec rspec"
+
+[tasks.ci]
+description = "Everything CI runs: lint then test; dispatch.verify and (phase 3) hk call this"
+depends = ["setup"]
+run = [{ task = "lint" }, { task = "test" }]
