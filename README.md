@@ -1,4 +1,5 @@
 # Chess
+[![CI](https://github.com/edpaget/chess-rules/actions/workflows/ci.yml/badge.svg)](https://github.com/edpaget/chess-rules/actions/workflows/ci.yml)
 
 A Ruby Gem to validate Chess moves and (eventually) produce algebraic and FEN notation
 
@@ -47,6 +48,9 @@ The toolchain and dev tasks are managed with [mise](https://mise.jdx.dev):
     mise run ci                        # bundle install, then lint (rubocop) and test (rspec)
 
 `mise run lint` and `mise run test` run the steps individually.
+
+CI runs `mise run lint` on the pinned Ruby and `mise run test` on Ruby 3.3,
+3.4 and 4.0; the spec job is non-blocking until `fix-ecs-component-delegate` lands.
 
 Git hooks (configured in `hk.pkl`):
 
