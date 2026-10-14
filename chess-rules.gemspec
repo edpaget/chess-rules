@@ -16,12 +16,12 @@ Gem::Specification.new do |s|
   s.files         = %x(git ls-files).split("\n")
   s.executables   = %x(git ls-files -- bin/*).split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
+  s.required_ruby_version = ">= 3.3"
 
   # specify any dependencies here; for example:
-  s.add_development_dependency("rake")
-  s.add_development_dependency("rspec")
-  s.add_development_dependency("rubocop")
-  s.add_development_dependency("rubocop-rspec")
-  s.add_development_dependency("rubocop-shopify")
+  s.add_development_dependency("rspec", "~> 3.13")
+  s.add_development_dependency("rubocop", "~> 1.92")
+  s.add_development_dependency("rubocop-rspec", "~> 3.10")
+  s.add_development_dependency("rubocop-shopify", "~> 3.1")
   # s.add_runtime_dependency "rest-client"
 end

@@ -1,4 +1,5 @@
 # Chess
+[![CI](https://github.com/edpaget/chess-rules/actions/workflows/ci.yml/badge.svg)](https://github.com/edpaget/chess-rules/actions/workflows/ci.yml)
 
 A Ruby Gem to validate Chess moves and (eventually) produce algebraic and FEN notation
 
@@ -34,9 +35,35 @@ If a move is not legal one of three errors will be raised
   
 ## Dependencies
 
-Chess only depends on rspec for running its test suite. 
+Chess has no runtime dependencies. Development uses rspec and rubocop.
 
-Chess is not currently compatible with Ruby 1.8.7, but has been tested on both 1.9.2 and 1.9.3
+Chess requires Ruby 3.3 or newer.
+
+## Development
+
+The toolchain and dev tasks are managed with [mise](https://mise.jdx.dev):
+
+    mise install                       # installs the pinned Ruby, hk and pkl
+    mise exec -- hk install --mise     # one-time per clone: installs the git hooks
+    mise run ci                        # bundle install, then lint (rubocop) and test (rspec)
+
+`mise run lint` and `mise run test` run the steps individually.
+
+CI runs `mise run lint` on the pinned Ruby and `mise run test` on Ruby 3.3,
+3.4 and 4.0; the spec job is non-blocking until `fix-ecs-component-delegate` lands.
+
+Git hooks (configured in `hk.pkl`):
+
+- **pre-commit** runs rubocop on staged Ruby files with safe autocorrect;
+  corrected files are re-staged, and offenses that cannot be autocorrected
+  block the commit.
+- **pre-push** runs the full spec suite (`mise run test`).
+
+Run them by hand with `mise exec -- hk check --all` or `mise exec -- hk fix --all`.
+
+Note: the spec suite (and therefore the pre-push hook and `mise run ci`) is
+red until task `fix-ecs-component-delegate` lands. Until then, push with
+`git push --no-verify` to skip the pre-push hook.
 
 ## Future Directions
 

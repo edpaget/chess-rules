@@ -1,10 +1,16 @@
+inherit_from: .rubocop_todo.yml
+
 inherit_gem:
   rubocop-shopify: rubocop.yml
+
+plugins:
+  - rubocop-rspec
 
 AllCops:
   NewCops: enable
   SuggestExtensions: false
+  TargetRubyVersion: 3.3
 
-Style/MethodCallWithArgsParenthesis
+Style/MethodCallWithArgsParentheses:
   Exclude:
     - "spec/**/*.rb"

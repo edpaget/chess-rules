@@ -1,0 +1,39 @@
+// Git hooks managed by hk (https://hk.jdx.dev).
+// Convention: hooks run the same tools, config and commands as the mise tasks
+// in mise.toml (lint -> rubocop, test -> rspec) so they cannot drift.
+// Update both files together. The amends version must match hk in mise.toml.
+amends "package://github.com/jdx/hk/releases/download/v2.6.0/hk@2.6.0#/Config.pkl"
+
+local lint = new Mapping<String, Step> {
+  ["rubocop"] {
+    glob = List("**/*.rb", "*.gemspec", "Gemfile")
+    check = "bundle exec rubocop --force-exclusion {{files}}"
+    fix = "bundle exec rubocop --autocorrect --force-exclusion {{files}}"
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stage = true
+    stash = "git"
+    steps = lint
+  }
+  ["pre-push"] {
+    steps {
+      // Full spec suite, unmasked. Red until task fix-ecs-component-delegate
+      // lands; escape hatch: git push --no-verify
+      ["rspec"] {
+        check = "mise run test"
+        exclusive = true
+      }
+    }
+  }
+  ["check"] {
+    steps = lint
+  }
+  ["fix"] {
+    fix = true
+    steps = lint
+  }
+}
